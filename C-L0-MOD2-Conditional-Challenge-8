@@ -1,0 +1,49 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String date = sc.next();   
+        String[] parts = date.split("/");
+        if (parts.length != 3) {
+            System.out.println("Invalid");
+            return;
+        }
+
+        int d, m, y;
+        try {
+            d = Integer.parseInt(parts[0]);
+            m = Integer.parseInt(parts[1]);
+            y = Integer.parseInt(parts[2]);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid");
+            return;
+        }
+
+        boolean isValid = false;
+        if (y >= 1900 && y <= 9999) {
+            if ((m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) && (d >= 1 && d <= 31)) {
+                isValid = true;
+            }
+            else if ((m == 4 || m == 6 || m == 9 || m == 11) && (d >= 1 && d <= 30)) {
+                isValid = true;
+            }
+            else if (m == 2) {
+                boolean isLeap = (y % 400 == 0) || (y % 4 == 0 && y % 100 != 0);
+                if (isLeap && d >= 1 && d <= 29) {
+                    isValid = true;
+                }else if (!isLeap && d>=1 && d<=28) {
+                    isValid = true;
+                }
+            }
+        }
+        if (isValid) {
+            System.out.println("Valid");
+        } else {
+            System.out.println("Invalid");
+        }
+    }
+}
